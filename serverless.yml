@@ -1,0 +1,93 @@
+service: crud-workshop
+
+provider:
+  name: aws
+  runtime: nodejs14.x
+  lambdaHashingVersion: 20201221
+  endpointType: edge
+  versionFunctions: false
+  tracing:
+      apiGateway: true
+      lambda: true
+  environment:
+      NODE_ENV: develop
+      DOMAIN_BASEPATH: ""
+      DB_NAME: #use ssm better
+      DB_USERNAME: #use ssm better
+      DB_PASSWORD: #use ssm better
+      DB_HOST: #use ssm better
+      DB_PORT: 3306
+      DB_DIALECT: mysql
+      DB_DRIVER: mysql
+      APP_VERSION: 1.0
+      APP_HOST_SSL: false
+      DB_SSL: false
+
+plugins: 
+  - serverless-offline
+  - serverless-dotenv-plugin  
+
+custom:
+  serverless-offline:
+    useChildProcesses: true
+    allowCache: true
+    httpPort: 3888
+  environments: 
+    dev: develop
+
+ 
+functions:
+  create-user:
+    description: Create User
+    handler: controllers/User.create
+    timeout: 30
+    memorySize: 2048
+    events:
+      - http:
+          path: /user
+          method: post
+          cors: true
+
+  update-user:
+    description: Update User
+    handler: controllers/User.update
+    timeout: 30
+    memorySize: 2048
+    events:
+      - http:
+          path: /user/{id}
+          method: put
+          cors: true
+
+  delete-user:
+    description: Delete User
+    handler: controllers/User.delete
+    timeout: 30
+    memorySize: 2048
+    events:
+      - http:
+          path: /user/{id}
+          method: delete
+          cors: true
+
+  get-user:
+    description: Get User
+    handler: controllers/User.get
+    timeout: 30
+    memorySize: 2048
+    events:
+      - http:
+          path: /user/{id}
+          method: get
+          cors: true
+
+  list-users:
+    description: List All Users
+    handler: controllers/User.list
+    timeout: 30
+    memorySize: 2048
+    events:
+      - http:
+          path: /users
+          method: get
+          cors: true
