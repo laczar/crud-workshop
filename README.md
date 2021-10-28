@@ -40,4 +40,6 @@ cp .env.sample .env
 yarn start OR npm start
 ```
 
-FEEL FREE TO MODIFY AND PLAY AROUND
+# FEEL FREE TO MODIFY AND PLAY AROUND
+
+## serverless-offline makes the Serverless Framework more enjoyable since you can enjoy it locally
