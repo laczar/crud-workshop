@@ -33,7 +33,7 @@ custom:
     allowCache: true
     httpPort: 3888
   environments: 
-    dev: develop
+    dev: dev
 
  
 functions:
